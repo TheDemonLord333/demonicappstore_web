@@ -1,0 +1,16 @@
+node_modules/
+.env
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+uploads/apps/*
+uploads/icons/*
+uploads/screenshots/*
+!uploads/apps/.gitkeep
+!uploads/icons/.gitkeep
+!uploads/screenshots/.gitkeep
+npm-debug.log*
+*.log
+logs/*.log
+.DS_Store

@@ -1,13 +1,41 @@
 {
-  "name": "demonicappstore",
+  "name": "demonic-app-store",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Demonic App Store – privater App-Katalog für selbst signierte iOS-Apps (Web, Mobile Web & WKWebView aus einer Codebasis).",
+  "main": "server/index.js",
+  "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "migrate": "node server/database/migrate.js",
+    "create-admin": "node server/database/create-admin.js",
+    "generate-icons": "node tools/generate-icons.js"
   },
-  "keywords": [],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "better-sqlite3": "^11.3.0",
+    "compression": "^1.7.4",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "express-session": "^1.18.0",
+    "express-validator": "^7.2.0",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "multer": "^2.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "keywords": [
+    "app-store",
+    "ipa",
+    "ios",
+    "pwa"
+  ],
   "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+  "license": "UNLICENSED"
 }

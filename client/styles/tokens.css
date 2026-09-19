@@ -1,0 +1,100 @@
+/*
+ * Demonic App Store – Design-Tokens
+ * Dunkles, hochwertiges "dämonisches" Theme: Schwarz/Anthrazit-Basis,
+ * dunkles/leuchtendes Rot, dezente violette Akzente, Glas-/Metall-Flächen.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Flächen */
+  --bg-void: #06050a;
+  --bg-app: #0b0a10;
+  --bg-surface: #14121a;
+  --bg-surface-2: #1c1922;
+  --bg-surface-3: #24202c;
+  --bg-glass: rgba(24, 20, 30, 0.72);
+
+  /* Ränder */
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --border-glow: rgba(255, 45, 61, 0.4);
+
+  /* Marke: Rot */
+  --red-deep: #5c0d16;
+  --red-core: #b31c2b;
+  --red-bright: #ff2d3d;
+  --red-glow: #ff4d5e;
+
+  /* Marke: Violett (Akzent) */
+  --violet-deep: #3b2166;
+  --violet-core: #7c3aed;
+  --violet-bright: #a377ff;
+
+  /* Text */
+  --text-primary: #f6f3f5;
+  --text-secondary: #b9b1bb;
+  --text-muted: #7c7482;
+  --text-on-accent: #fff5f5;
+
+  /* Status */
+  --state-update: var(--violet-bright);
+  --state-install: var(--red-bright);
+  --state-open: var(--text-secondary);
+  --state-unavailable: #55505c;
+
+  /* Radien */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+
+  /* Abstände */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Schatten & Glow */
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --glow-red: 0 0 0 1px rgba(255, 45, 61, 0.25), 0 0 28px rgba(255, 45, 61, 0.35);
+  --glow-violet: 0 0 0 1px rgba(124, 58, 237, 0.25), 0 0 28px rgba(124, 58, 237, 0.32);
+
+  /* Typografie: native Systemschrift für ein "App-Gefühl" statt Web-Fonts */
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Layout */
+  --header-height: 64px;
+  --header-height-mobile: 56px;
+  --container-max: 1280px;
+
+  /* Bewegung */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 240ms;
+  --duration-slow: 420ms;
+
+  /* Safe Areas (iOS) */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+  }
+}
