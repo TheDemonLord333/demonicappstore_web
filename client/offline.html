@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Demonic App Store – Offline</title>
+    <meta name="theme-color" content="#0b0a10" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+    <link rel="stylesheet" href="/styles/offline.css" />
+  </head>
+  <body>
+    <div class="offline-card">
+      <img class="offline-mark" src="/icons/icon-192.png" alt="" />
+      <h1>Demonic App Store kann den Server momentan nicht erreichen.</h1>
+      <p>
+        Prüfe deine Internetverbindung. Sobald der Server wieder erreichbar ist, kannst du den
+        Store erneut laden.
+      </p>
+      <button id="retry-btn" type="button">Erneut versuchen</button>
+      <div class="offline-hint">Wird automatisch erneut versucht, sobald du wieder online bist.</div>
+    </div>
+    <script src="/scripts/offline.js"></script>
+  </body>
+</html>
