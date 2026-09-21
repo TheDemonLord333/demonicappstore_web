@@ -81,7 +81,11 @@ function buildBaseForm(app, categories, { isCreate }) {
       statusSelect ? field('Status', statusSelect) : h('div', {}, []),
     ]),
     h('div', { class: 'form-grid cols-2' }, [
-      field('Installations-URL', installUrlInput, 'Wird verwendet, falls keine Manifest-Generierung erfolgen soll.'),
+      field(
+        'Installations-URL',
+        installUrlInput,
+        'Nur für "Direkter Link" / "TestFlight" / "Externe URL" nötig. Bei "OTA-Manifest" wird der Installationslink automatisch aus veröffentlichter Version + IPA erzeugt – dieses Feld bitte leer lassen.'
+      ),
       field('Manifest-URL (optional override)', manifestUrlInput, 'Leer lassen für automatisch generiertes Manifest.'),
     ]),
     h('label', { class: 'row gap-2' }, [featuredInput, h('span', {}, 'Als "Featured" auf der Startseite hervorheben')]),

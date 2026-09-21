@@ -38,7 +38,7 @@
  *     // beantwortet. Alternativ (klassischer WKScriptMessageHandler-Stil)
  *     // kann die native Seite auch direkt eine Promise-kompatible Methode
  *     // bereitstellen – siehe callNative() unten, das beide Stile abdeckt.
- *     installApp: function(appId, installUrl) {},
+ *     installApp: function(appId, installUrl, version, build) {},
  *     openApp: function(appId) {},
  *     checkForUpdates: function() {},
  *   };
@@ -163,20 +163,24 @@
 
   /**
    * Startet die Installation einer App.
-   * - Nativ: delegiert an die iOS-Hülle (z. B. um einen systemeigenen
-   *   Installationsdialog zu zeigen oder Fortschritt zu tracken).
+   * - Nativ: delegiert an die iOS-Hülle inkl. Version/Build, damit die
+   *   native App den Installationsvorgang in ihrer lokalen Registry
+   *   vermerken kann (z. B. um Installed/Update-Status zu verfolgen).
    * - Browser-Fallback: öffnet die vom Backend gelieferte installUrl
    *   (z. B. ein itms-services://-Link für OTA-Installation).
    */
   async function installApp(app) {
     if (hasNativeObject() && typeof global.DemonicNative.installApp === 'function') {
-      return callNative('installApp', app.id, app.installUrl);
+      return callNative('installApp', app.id, app.installUrl, app.version, app.build);
     }
     if (app.installUrl) {
       global.location.href = app.installUrl;
       return { ok: true, delegated: 'browser' };
     }
-    throw new Error('Für diese App ist keine Installations-URL hinterlegt.');
+    if (!app.version) {
+      throw new Error('Für diese App wurde noch keine installierbare Version veröffentlicht.');
+    }
+    throw new Error('Für die veröffentlichte Version wurde noch keine IPA-Datei hochgeladen.');
   }
 
   /** Öffnet eine bereits installierte App (nur sinnvoll innerhalb der nativen Hülle). */

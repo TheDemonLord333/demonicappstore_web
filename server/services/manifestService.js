@@ -2,6 +2,7 @@
 
 const config = require('../config/env');
 const appService = require('./appService');
+const { buildManifestUrl, buildInstallLink } = require('../utils/manifestUrls');
 
 function xmlEscape(value) {
   return String(value)
@@ -94,13 +95,4 @@ ${assets.join('\n')}
 `;
 }
 
-/**
- * itms-services://-Link, den das Frontend zum Starten der OTA-Installation
- * öffnen kann (Standard-Apple-Mechanismus für signierte Ad-hoc-/In-House-IPAs).
- */
-function buildInstallLink(appSlug) {
-  const manifestUrl = `${config.baseUrl}/api/apps/${appSlug}/manifest`;
-  return `itms-services://?action=download-manifest&url=${encodeURIComponent(manifestUrl)}`;
-}
-
-module.exports = { buildManifestPlist, buildInstallLink };
+module.exports = { buildManifestPlist, buildInstallLink, buildManifestUrl };
