@@ -5,6 +5,7 @@ const db = require('../database/db');
 const config = require('../config/env');
 const { isValidSlug } = require('../utils/slugify');
 const { safeJoin } = require('../utils/safePath');
+const { buildManifestUrl, buildInstallLink } = require('../utils/manifestUrls');
 
 function notFound(message) {
   const err = new Error(message);
@@ -38,6 +39,23 @@ function getCategoryName(categoryId) {
   return row || null;
 }
 
+/**
+ * Für distributionType "manifest" wird die Installations-URL NICHT manuell
+ * im Admin-Panel gepflegt, sondern automatisch aus der bereits vorhandenen
+ * OTA-Manifest-Infrastruktur erzeugt (siehe server/services/manifestService.js
+ * und server/utils/manifestUrls.js). Vorausgesetzt ist eine veröffentlichte
+ * Version mit hochgeladener IPA – sonst bliebe der erzeugte Link tot
+ * (der Manifest-Endpunkt würde 404 liefern), daher dann lieber `null`
+ * zurückgeben, statt einen kaputten Link anzubieten.
+ */
+function resolveInstallUrl(appRow, currentVersion) {
+  if (appRow.distribution_type === 'manifest') {
+    const hasInstallableVersion = !!(currentVersion && currentVersion.ipa_path);
+    return hasInstallableVersion ? buildInstallLink(appRow.slug) : null;
+  }
+  return appRow.install_url || null;
+}
+
 function toPublicDto(appRow) {
   const current = getCurrentVersionRow(appRow.id);
   const category = getCategoryName(appRow.category_id);
@@ -54,8 +72,8 @@ function toPublicDto(appRow) {
     build: current ? current.build : null,
     releaseNotes: current ? current.release_notes : null,
     distributionType: appRow.distribution_type,
-    installUrl: appRow.install_url,
-    manifestUrl: appRow.manifest_url || `${config.baseUrl}/api/apps/${appRow.slug}/manifest`,
+    installUrl: resolveInstallUrl(appRow, current),
+    manifestUrl: appRow.manifest_url || buildManifestUrl(appRow.slug),
     status: appRow.status,
     featured: !!appRow.featured,
     updatedAt: appRow.updated_at,
